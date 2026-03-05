@@ -5,7 +5,7 @@ import { Model } from "mongoose";
 import { JobProfile, JobProfileDocument } from "./schemas/job-profile.schema";
 import { JobDiscoveryService } from "./job-discovery.service";
 import { OrchestratorService } from "../common/orchestrator/orchestrator.service";
-import { Logger } from "@nestjs/common";
+import { Logger, Inject, forwardRef } from "@nestjs/common";
 
 @Processor("job-discovery")
 export class DiscoveryProcessor extends WorkerHost {
@@ -15,6 +15,7 @@ export class DiscoveryProcessor extends WorkerHost {
     @InjectModel(JobProfile.name)
     private jobProfileModel: Model<JobProfileDocument>,
     private jobDiscoveryService: JobDiscoveryService,
+    @Inject(forwardRef(() => OrchestratorService))
     private orchestratorService: OrchestratorService,
   ) {
     super();

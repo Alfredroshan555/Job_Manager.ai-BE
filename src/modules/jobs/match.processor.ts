@@ -42,7 +42,7 @@ export class MatchProcessor extends WorkerHost {
       await this.jobMatchModel.findOneAndUpdate(
         { userId, jobId },
         { ...scoringResult },
-        { upsert: true, new: true },
+        { upsert: true, returnDocument: "after" },
       );
 
       this.logger.log(

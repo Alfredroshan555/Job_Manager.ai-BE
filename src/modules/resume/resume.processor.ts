@@ -54,7 +54,7 @@ export class ResumeProcessor extends WorkerHost {
       const profile = await this.jobProfileModel.findOneAndUpdate(
         { userId },
         { resumeId, ...structuredData },
-        { upsert: true, new: true },
+        { upsert: true, returnDocument: "after" },
       );
 
       // Update User Name and Email from Resume
